@@ -17,8 +17,8 @@
   <nav class="site-nav">
     <ul class="nav-links">
       <li><a href="index.php">Home</a></li>
-      <li><a href="tour.php">Tour</a></li>
       <li><a href="albums.php">Albums</a></li>
+      <li><a href="tour.php">Tour</a></li>
       <li><a href="merch.php">Merch</a></li>
       <li><a href="login.php">Login</a></li>
     </ul>

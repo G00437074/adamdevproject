@@ -6,35 +6,39 @@ body {
     font-family: "Helvetica Neue", sans-serif;
     background-color: #1B1924;
     color: #333;
-  }
-  
-  h1, h2, h3 {
+}
+
+h1,
+h2,
+h3 {
     font-family: "Georgia", serif;
     margin: 0.5em 0;
-  }
-  
-  a {
+}
+
+a {
     text-decoration: none;
     color: inherit;
-  }
-  
-  /* -------------------------------
+}
+
+/* -------------------------------
      Header Image
   --------------------------------*/
-  .header-banner {
+.header-banner {
     width: 100%;
     overflow: hidden;
-  }
-  
-  .header-image {
+}
+
+.header-image {
     width: 100%;
-    height: 380px;          /* Adjust height as needed */
-    object-fit: cover;       /* Ensures full-width scaling */
+    height: 380px;
+    /* Adjust height as needed */
+    object-fit: cover;
+    /* Ensures full-width scaling */
     display: block;
-  }
-  
-  /* Optional overlay text (if you want title over the image) */
-  .header-banner::after {
+}
+
+/* Optional overlay text (if you want title over the image) */
+.header-banner::after {
     content: "Laufey";
     position: absolute;
     top: 35%;
@@ -43,23 +47,23 @@ body {
     color: white;
     font-size: 3rem;
     letter-spacing: 3px;
-    text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
     font-weight: 600;
-  }
-  
-  /* -------------------------------
+}
+
+/* -------------------------------
      Navigation Bar
   --------------------------------*/
-  .site-nav {
+.site-nav {
     background-color: #83b8c5;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 100;
-  }
-  
-  .nav-links {
+}
+
+.nav-links {
     list-style: none;
     display: flex;
     justify-content: center;
@@ -67,32 +71,33 @@ body {
     gap: 2rem;
     padding: 0;
     margin: 0;
-  }
-  
-  .nav-links a {
+}
+
+.nav-links a {
     text-decoration: none;
     color: #1B1924;
     font-weight: 500;
     transition: color 0.2s ease;
-  }
-  
-  .nav-links a:hover {
-    color: #F0EED5; /* A soft brown-gold accent */
-  }
-  
-  /* -------------------------------
+}
+
+.nav-links a:hover {
+    color: #F0EED5;
+    /* A soft brown-gold accent */
+}
+
+/* -------------------------------
      Main Content
   --------------------------------*/
-  .home-container {
+.home-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
-  }
-  
-  /* -------------------------------
+}
+
+/* -------------------------------
      Hero Section
   --------------------------------*/
-  .hero {
+.hero {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,29 +107,29 @@ body {
     padding: 40px 20px;
     background-color: #C9DBE5;
     border-radius: 10px;
-  }
-  
-  .hero-image {
+}
+
+.hero-image {
     width: 320px;
     border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  }
-  
-  .hero-text {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hero-text {
     max-width: 450px;
-  }
-  
-  .hero-text h1 {
+}
+
+.hero-text h1 {
     font-size: 2.2rem;
     margin-bottom: 10px;
-  }
-  
-  .hero-text p {
+}
+
+.hero-text p {
     font-size: 1rem;
     color: #555;
-  }
-  
-  .btn {
+}
+
+.btn {
     background-color: #83B8C5;
     color: white;
     text-decoration: none;
@@ -133,15 +138,15 @@ body {
     display: inline-block;
     margin-top: 12px;
     transition: background 0.3s ease;
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
     background-color: #F0EED5;
-  }
-  
+}
+
 
 /* -------------------------------
-   Latest News (YouTube Embed)
+   Latest 
 --------------------------------*/
 .latest {
     text-align: center;
@@ -150,34 +155,35 @@ body {
     border-radius: 10px;
     margin: 50px auto;
     max-width: 1000px;
-  }
-  
-  .latest h2 {
+}
+
+.latest h2 {
     font-size: 1.8rem;
     margin-bottom: 10px;
     color: #333;
-  }
-  
-  .latest p {
+}
+
+.latest p {
     font-size: 1rem;
     color: #555;
     margin-bottom: 30px;
-  }
-  
-  /* Responsive YouTube Embed */
-  .video-container {
+}
+
+/* Responsive YouTube Embed */
+.video-container {
     position: relative;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    padding-bottom: 56.25%;
+    /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  }
-  
-  .video-container iframe {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.video-container iframe {
     position: absolute;
     top: 0;
     left: 0;
@@ -185,44 +191,43 @@ body {
     height: 100%;
     border: 0;
     border-radius: 10px;
-  }
-  
-  
-  /* -------------------------------
+}
+
+
+/* -------------------------------
      Tour Preview
   --------------------------------*/
-  .tour-preview {
+.tour-preview {
     background-color: #C9DBE5;
     padding: 50px 20px;
     text-align: center;
     border-radius: 10px;
     margin-top: 40px;
-  }
-  
-  .tour-preview h2 {
+}
+
+.tour-preview h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
-  }
-  
-  .tour-item {
+}
+
+.tour-item {
     margin: 10px auto;
     max-width: 500px;
     background-color: #fff;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  
-  /* -------------------------------
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------------------
      Footer
   --------------------------------*/
-  .site-footer {
-    background-color: #fff;
+.site-footer {
+    background-color: #83b8c5;
     text-align: center;
     padding: 20px;
     font-size: 0.9rem;
-    color: #777;
+    color: #F0EED5;
     margin-top: 40px;
     border-top: 1px solid #ddd;
-  }
-  
+}

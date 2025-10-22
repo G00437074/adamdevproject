@@ -4,9 +4,31 @@
 <main class="home-container">
     <!-- Hero Section -->
     <section class="hero">
-        <img src="images/laufey_header.jpeg" alt="Laufey" class="hero-image">
+        <img src="images/laufey_image.jpg" alt="Laufey" class="hero-image">
         <div class="hero-text">
             <h1>Welcome to Laufey’s World</h1>
+            <p> Laufey (<i>pronounced lay-vay</i>) has captivated a generation with
+                virtuosic songs of love and self-discovery by manifesting her
+                vision of jazz-and classical-infused pop music. She has become a
+                bridge for the older music she adores, from Chet Baker to Carole
+                King to Ravel, by offering her bold interpretation to a younger
+                crop of listeners who have become deeply connected over time.
+                <br>
+                <br>
+                Raised between Reykjavik and Washington, D.C.,
+                she learned piano and cello as a child, later studying
+                at Berklee College of Music. There, she wrote her debut EP,
+                2021’s Typical of Me, whose striking single “Street by Street” debuted at No. 1
+                on Icelandic Radio—the first of many achievements that have grown to include
+                5 billion global streams, a social media audience of 25 million, the biggest
+                jazz LP debut in Spotify history and an album in Billboard’s Top 20 (both for Bewitched),
+                a growing pile of Platinum plaques, a Forbes 30 Under 30 designation, and being
+                named one of TIME’s 2025 Women of the Year. She’s sold out the Hollywood Bowl,
+                Radio City Music Hall, and London’s Royal Albert Hall; performed backed by the
+                LA Phil, the National Symphony Orchestra, and the China Philharmonic Orchestra;
+                shared the stage with the likes of Jon Batiste and Raye; and collaborated on
+                records with artists ranging from Beabadoobee to Norah Jones.
+                <br>
             <p>Discover her music, tour dates, and exclusive merch.</p>
             <a href="albums.php" class="btn">Explore Albums</a>
         </div>
@@ -14,7 +36,7 @@
 
     <!-- Latest Section -->
     <section class="latest">
-        <h2>Latest News</h2>
+        <h2>Latest</h2>
         <p>Discover Laufey’s newest music and experience her unique blend of jazz and soul.</p>
 
         <!-- Embedded YouTube video -->
@@ -54,7 +76,7 @@
 
             <p>
                 Stream or download <strong>“Silver Lining”</strong> from Laufey's new album,
-                <strong>A Matter of Time</strong>, out now:
+                <strong>'A Matter of Time'</strong>, out now:
                 <a href="https://laufey.ffm.to/amatteroftime" target="_blank" rel="noopener noreferrer">
                     https://laufey.ffm.to/amatteroftime
                 </a>

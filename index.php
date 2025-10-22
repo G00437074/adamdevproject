@@ -29,8 +29,9 @@
                 shared the stage with the likes of Jon Batiste and Raye; and collaborated on
                 records with artists ranging from Beabadoobee to Norah Jones.
                 <br>
+                <br>
             <p>Discover her music, tour dates, and exclusive merch.</p>
-            <a href="albums.php" class="btn">Explore Albums</a>
+            <a href="albums.php" class="btn">Explore Laufey's Music</a>
         </div>
     </section>
 
@@ -79,6 +80,12 @@
                 <strong>'A Matter of Time'</strong>, out now:
                 <a href="https://laufey.ffm.to/amatteroftime" target="_blank" rel="noopener noreferrer">
                     https://laufey.ffm.to/amatteroftime
+                </a>
+            </p>
+            <br>
+            <p>Disover more music videos on Laufey's Youtube Channel:
+                <a href="https://youtube.com/@laufey?si=zVU9zTfKL7m-756R" target="_blank" rel="noopener noreferrer">
+                https://youtube.com/@laufey?si=zVU9zTfKL7m-756R
                 </a>
             </p>
     </section>

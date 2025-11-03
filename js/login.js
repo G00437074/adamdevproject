@@ -76,4 +76,66 @@ document.addEventListener('DOMContentLoaded', () => {
   
     return false;
   }
+
+  // ----- Open/Close helpers -----
+function openCreate(e){ if(e) e.preventDefault(); const m=document.getElementById('createUserModal'); if(m){ m.style.display='flex'; } return false; }
+function closeCreate(){ const m=document.getElementById('createUserModal'); if(m){ m.style.display='none'; } return false; }
+
+function switchToCreate(){ 
+  const login = document.getElementById('loginModal');
+  const create = document.getElementById('createUserModal');
+  if (login) login.style.display = 'none';
+  if (create) create.style.display = 'flex';
+  return false;
+}
+
+function switchToLogin(){ 
+  const login = document.getElementById('loginModal');
+  const create = document.getElementById('createUserModal');
+  if (create) create.style.display = 'none';
+  if (login) login.style.display = 'flex';
+  return false;
+}
+
+// Close create modal if clicking backdrop
+document.addEventListener('DOMContentLoaded', () => {
+  const createModal = document.getElementById('createUserModal');
+  const closeCreateBtn = document.getElementById('closeCreate');
+  if (createModal){
+    window.addEventListener('click', (e) => { if (e.target === createModal) closeCreate(); });
+  }
+  if (closeCreateBtn){
+    closeCreateBtn.addEventListener('click', closeCreate);
+  }
+});
+
+// ----- Create Account submit via Fetch -----
+function createUser() {
+  const form = document.getElementById('createForm');
+  const msg  = document.getElementById('createMessage');
+  const API_BASE = '/adamdevproject/api/'; // adjust if your folder name is different
+  const formData = new FormData(form);
+
+  // basic client-side checks (optional)
+  const u = (formData.get('username') || '').trim();
+  const p = (formData.get('password') || '');
+  if (!u || !p) {
+    msg.textContent = 'Please enter a username and password.';
+    return false;
+  }
+
+  fetch(API_BASE + 'create_user.php', { method: 'POST', body: formData })
+    .then(async r => {
+      const text = await r.text();     // API returns plain text message
+      msg.textContent = text;
+      // if success, bounce back to login after a moment
+      if (/user created/i.test(text) || /created/i.test(text)) {
+        setTimeout(() => { switchToLogin(); }, 1200);
+      }
+    })
+    .catch(() => { msg.textContent = 'Error creating account. Please try again.'; });
+
+  return false; // prevent normal submit
+}
+
   

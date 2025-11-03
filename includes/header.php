@@ -1,12 +1,14 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Laufey Music</title>
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <!-- Full-width header image -->
   <header class="header-banner">
@@ -27,36 +29,64 @@
   </nav>
 
   <div id="loginModal" class="login-modal" style="display:none;">
-  <div class="login-box">
-    <span id="closeLogin" class="close-btn" onclick="return closeLogin();">&times;</span>
-    <h2>Login</h2>
-    <form id="loginForm" onsubmit="return loginUser();">
-      <input type="text" id="username" name="username" placeholder="Username" required><br>
-      <input type="password" id="password" name="password" placeholder="Password" required><br>
-      <button type="submit" class="btn">Login</button>
-      <p id="loginMessage"></p>
-    </form>
+    <div class="login-box">
+      <span id="closeLogin" class="close-btn" onclick="return closeLogin();">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm" onsubmit="return loginUser();">
+        <input type="text" id="username" name="username" placeholder="Username" required><br>
+        <input type="password" id="password" name="password" placeholder="Password" required><br>
+        <button type="submit" class="btn">Login</button>
+        <p id="loginMessage"></p>
+      </form>
+      <p style="margin-top:10px;">
+        Don’t have an account? <a href="#" onclick="return switchToCreate();">Create one</a>
+      </p>
+
+    </div>
   </div>
-</div>
+
+  <!-- Create Account Popup -->
+  <div id="createUserModal" class="login-modal" style="display:none;">
+    <div class="login-box">
+      <span id="closeCreate" class="close-btn" onclick="return closeCreate();">&times;</span>
+      <h2>Create Account</h2>
+      <form id="createForm" onsubmit="return createUser();">
+        <input type="text" id="newUsername" name="username" placeholder="Username" required><br>
+        <input type="email" id="newEmail" name="email" placeholder="Email (optional)"><br>
+        <input type="password" id="newPassword" name="password" placeholder="Password" required><br>
+        <button type="submit" class="btn">Create Account</button>
+        <p id="createMessage"></p>
+      </form>
+      <p style="margin-top:10px;">
+        Already have an account? <a href="#" onclick="return switchToLogin();">Log in</a>
+      </p>
+    </div>
+  </div>
 
 
-<script>
-  function openLogin(e){
-    if(e) e.preventDefault();
-    var m = document.getElementById('loginModal');
-    if (m){ m.style.display = 'flex'; } // flex centers it (per your CSS)
-    return false;
-  }
-  function closeLogin(){
-    var m = document.getElementById('loginModal');
-    if (m){ m.style.display = 'none'; }
-    return false;
-  }
-</script>
-<script src="js/login.js"></script>
+  <script>
+    function openLogin(e) {
+      if (e) e.preventDefault();
+      var m = document.getElementById('loginModal');
+      if (m) {
+        m.style.display = 'flex';
+      } // flex centers it (per your CSS)
+      return false;
+    }
+
+    function closeLogin() {
+      var m = document.getElementById('loginModal');
+      if (m) {
+        m.style.display = 'none';
+      }
+      return false;
+    }
+  </script>
+  <script src="js/login.js"></script>
 </body>
+
 </html>
 
 </body>
-</html>
 
+</html>

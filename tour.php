@@ -8,8 +8,14 @@
 
 <body>
 
+
+<?php
+session_start(); ?>
+
     <?php include 'includes/header.php'; ?>
     <link rel="stylesheet" href="css/style.css">
+
+    
 
 
     <section class="tour-preview">

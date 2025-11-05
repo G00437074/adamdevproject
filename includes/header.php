@@ -1,7 +1,7 @@
-<?php 
+<?php
 // Start or resume the current session
 // This allows PHP to keep track of user data (like login status) across different pages
-session_start(); 
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +66,7 @@ session_start();
 
       <!-- Link to switch to the Create Account popup -->
       <p style="margin-top:10px;">
-        Don’t have an account? 
+        Don’t have an account?
         <a href="#" onclick="return switchToCreate();">Create one</a>
       </p>
     </div>
@@ -96,7 +96,7 @@ session_start();
 
       <!-- Link to switch back to the Login popup -->
       <p style="margin-top:10px;">
-        Already have an account? 
+        Already have an account?
         <a href="#" onclick="return switchToLogin();">Log in</a>
       </p>
     </div>

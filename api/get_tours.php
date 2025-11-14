@@ -1,49 +1,83 @@
 <?php
 session_start();
-
-// api/get_tours.php
 require_once '../includes/db_connect.php';
+
 header('Content-Type: application/json');
 
-// Optional search term
-$search = isset($_GET['q']) ? trim($_GET['q']) : '';
+// Parameters
+$search    = isset($_GET['q']) ? trim($_GET['q']) : '';
+$mode      = isset($_GET['mode']) ? $_GET['mode'] : 'current';
+$tourName  = isset($_GET['tour_name']) ? trim($_GET['tour_name']) : '';
 
-$sql = "SELECT id, city, venue, date 
-        FROM tours 
-        WHERE date >= CURDATE()";
+// SQL base
+$sql = "SELECT id, city, venue, date, tour_name
+        FROM tours
+        WHERE 1";
+
 $params = [];
 
-if ($search !== '') {
-  $sql .= " AND (city LIKE ? OR venue LIKE ?)";
-  $like = '%' . $search . '%';
-  $params[] = $like;
-  $params[] = $like;
+// Current or Past filter
+if ($mode === 'past') {
+    $sql .= " AND date < CURDATE()";
+    $order = " ORDER BY date DESC";
+} else {
+    $sql .= " AND date >= CURDATE()";
+    $order = " ORDER BY date ASC";
 }
 
-$sql .= " ORDER BY date ASC";
+// Filter by specific tour name
+if ($tourName !== '') {
+    $sql .= " AND tour_name = ?";
+    $params[] = $tourName;
+}
+
+// Search filter
+if ($search !== '') {
+    $sql .= " AND (city LIKE ? OR venue LIKE ?)";
+    $params[] = "%$search%";
+    $params[] = "%$search%";
+}
+
+$sql .= $order;
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $tours = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (!$tours) {
-  echo json_encode(['status' => 'ok', 'html' => '<p>No upcoming dates found.</p>']);
-  exit;
+    echo json_encode(['html' => '<p>No tour dates found.</p>']);
+    exit;
 }
 
-$html = '';
+// Build a table of dates
+$html = '<table class="tour-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>City</th>
+                <th>Venue</th>
+                <th>Tour</th>
+            </tr>
+        </thead>
+        <tbody>';
+
 foreach ($tours as $t) {
-  $d = date('D, M j, Y', strtotime($t['date']));
-  $city = htmlspecialchars($t['city']);
-  $venue = htmlspecialchars($t['venue']);
+    $date = date("F j, Y", strtotime($t['date']));
+    $city = htmlspecialchars($t['city']);
+    $venue = htmlspecialchars($t['venue']);
+    $tour = htmlspecialchars($t['tour_name']);
 
-  $html .= "
-    <div class='tour-item'>
-      <h3 style='margin:6px 0;'>{$city} — {$venue}</h3>
-      <p style='margin:0 0 8px; color:#555;'>{$d}</p>
-      <button class='btn' onclick='alert(\"Tickets coming soon!\")'>Get Tickets</button>
-    </div>
-  ";
+    $html .= "
+    <tr>
+        <td>$date</td>
+        <td>$city</td>
+        <td>$venue</td>
+        <td>
+            <a href='#' class='tour-link' data-tour=\"$tour\">$tour</a>
+        </td>
+    </tr>";
 }
 
-echo json_encode(['status' => 'ok', 'html' => $html]);
+$html .= "</tbody></table>";
+
+echo json_encode(['html' => $html]);

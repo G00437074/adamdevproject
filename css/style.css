@@ -297,4 +297,58 @@ a {
     cursor: pointer;
     color: #333;
   }
+
+  .tour-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.tour-controls .tour-filter {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+    background: #f8f4ef;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.tour-controls .tour-filter.active {
+    background: #222;
+    color: #fff;
+}
+
+#tourSearch {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+    flex: 1;
+    min-width: 150px;
+}
+
+.tour-table {
+    width: 100%;
+    max-width: 900px;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.tour-table th,
+.tour-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.tour-table th {
+    font-weight: 600;
+}
+
+.past-label {
+    font-size: 0.85rem;
+    color: #777;
+}
+
   

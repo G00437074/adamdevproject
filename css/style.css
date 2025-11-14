@@ -1,6 +1,7 @@
 /* -------------------------------
    General Page Styles
 --------------------------------*/
+
 body {
     margin: 0;
     font-family: "Helvetica Neue", sans-serif;
@@ -298,57 +299,147 @@ a {
     color: #333;
   }
 
-  .tour-controls {
+/* -------------------------------
+     Tour Page
+  --------------------------------*/
+
+/* Page background + base text */
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", sans-serif;
+    background: #1B1924;;
+    color: #222;
+}
+
+/* --- Tour section container --- */
+.tour-preview {
+    max-width: 1100px;
+    margin: 4rem auto;
+    padding: 2.5rem 2.5rem 3rem;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 22px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.10);
+}
+
+/* Title */
+.tour-preview h2 {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 2.4rem;
+    text-align: center;
+    margin: 0 0 1.8rem;
+    letter-spacing: 0.06em;
+}
+
+/* --- Controls row (buttons + search) --- */
+.tour-controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 0.75rem;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 1.5rem;
 }
 
 .tour-controls .tour-filter {
-    padding: 6px 12px;
     border-radius: 999px;
-    border: 1px solid #ccc;
-    background: #f8f4ef;
-    cursor: pointer;
+    border: 1px solid #c8c1b3;
+    background: #f4eee4;
+    padding: 0.45rem 1.1rem;
     font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.tour-controls .tour-filter:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .tour-controls .tour-filter.active {
-    background: #222;
-    color: #fff;
+    background: #27313c;
+    color: #fefaf4;
+    border-color: #27313c;
 }
 
 #tourSearch {
-    padding: 6px 10px;
+    min-width: 180px;
+    padding: 0.45rem 0.9rem;
     border-radius: 999px;
-    border: 1px solid #ccc;
-    flex: 1;
-    min-width: 150px;
+    border: 1px solid #c8c1b3;
+    background: #faf6ee;
+    font-size: 0.9rem;
 }
 
+/* --- Table --- */
 .tour-table {
     width: 100%;
-    max-width: 900px;
     border-collapse: collapse;
-    margin: 0 auto;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.tour-table thead {
+    background: #83b8c5;
 }
 
 .tour-table th,
 .tour-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #ddd;
+    padding: 0.75rem 0.8rem;
     text-align: left;
 }
 
 .tour-table th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     font-weight: 600;
+    color: #4f4637;
 }
 
-.past-label {
-    font-size: 0.85rem;
-    color: #777;
+.tour-table tbody tr:nth-child(even) {
+    background: #fbf7f1;
 }
 
-  
+.tour-table tbody tr:hover {
+    background: #efe4d6;
+}
+
+/* Tour name link */
+.tour-table a.tour-link {
+    color: #27313c;
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(39, 49, 60, 0.5);
+    padding-bottom: 1px;
+}
+
+.tour-table a.tour-link:hover {
+    border-bottom-style: solid;
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 800px) {
+    .tour-preview {
+        margin: 2.5rem 1rem;
+        padding: 1.8rem 1.4rem 2.2rem;
+    }
+
+    .tour-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #tourSearch {
+        width: 100%;
+    }
+}
+
+/* Small screens: allow horizontal scroll instead of squishing */
+@media (max-width: 600px) {
+    .tour-preview {
+        overflow-x: auto;
+    }
+
+    .tour-table {
+        min-width: 600px;
+    }
+}

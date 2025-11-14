@@ -9,8 +9,7 @@
 <body>
 
 
-<?php
-session_start(); ?>
+
 
     <?php include 'includes/header.php'; ?>
     <link rel="stylesheet" href="css/style.css">
@@ -20,11 +19,11 @@ session_start(); ?>
 
     <section class="tour-preview">
         <h2>🎶 Upcoming Tour Dates</h2>
-        <div id="tour-preview-list">Loading tour dates...</div>
+        <div id="tour-list">Loading tour dates...</div>
     </section>
     </main>
 
-    <script src="js/main.js"></script>
+    <script src="js/tour.js"></script>
     <?php include 'includes/footer.php'; ?>
 
 </body>

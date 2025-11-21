@@ -107,8 +107,8 @@
     <section class="tour-preview">
         <h2>🎶 Upcoming Tour Dates</h2>
         <div id="tour-preview-list">Loading tour dates...</div>
-    </section>
-</main> -->
+    </section> -->
+</main>
 
 <script src="js/main.js"></script>
 <?php include 'includes/footer.php'; ?>

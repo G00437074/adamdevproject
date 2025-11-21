@@ -11,7 +11,7 @@
 
     <div class="home-container">
         <section class="albums-section">
-            <h2>🎼 Albums</h2>
+            <h2>Albums</h2>
             <p class="albums-intro">
                 Explore Laufey’s discography and view tracklists for each album.
             </p>

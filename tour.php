@@ -17,7 +17,7 @@
 
 
     <section class="tour-preview">
-        <h2>🎶 Tour Dates</h2>
+        <h2>Tour Dates</h2>
 
         <!-- NEW: list of all tour names -->
         <div id="tourNameList" class="tour-name-list">

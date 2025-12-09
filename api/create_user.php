@@ -50,6 +50,7 @@ try {
   // CREATE NEW USER
   // ===============================
 
+  
   // Hash the password for security before saving it
   // password_hash() uses a strong one-way encryption method
   $hash = password_hash($password, PASSWORD_DEFAULT);

@@ -638,3 +638,125 @@ body {
 }
 
 
+/* ==== Laufey Merch Page (matches Albums palette) ==== */
+
+.merch-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    background: #d2e5f4;           /* same soft blue as albums header */
+}
+
+.merch-page h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.merch-page .view-cart-link {
+    display: block;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #1f2a37;
+}
+
+.merch-page .view-cart-link:hover {
+    text-decoration: underline;
+}
+
+/* Grid layout similar to album cards */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ✅ two per row */
+    gap: 2rem;
+}
+/* Individual product card */
+.product {
+    display: grid;
+    grid-template-columns: 170px 1fr auto;
+    gap: 1.25rem;
+    align-items: center;
+    background: #f7f1cf;
+    border-radius: 28px;
+    padding: 1.75rem;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Product image similar to album covers */
+.product img {
+    width: 160px;
+    height: 160px;
+    border-radius: 18px;
+    object-fit: cover;
+    background: #e8e1b8;
+}
+
+/* Text area */
+.product h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.4rem;
+}
+
+.product .price {
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.product p {
+    margin: 0 0 0.75rem;
+    max-width: 520px;
+}
+
+/* Form + button styling like the “View Tracklist” button */
+.product form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.product input[type="number"] {
+    width: 70px;
+    padding: 0.25rem 0.4rem;
+    border-radius: 999px;
+    border: 1px solid #cbd5e1;
+}
+
+/* Rounded blue button */
+.product button {
+    padding: 0.5rem 1.4rem;
+    border-radius: 999px;
+    border: 2px solid #5e8ca3;
+    background: #7fb6c9;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #5e8ca3;
+    transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+}
+
+.product button:hover {
+    background: #6aa4bb;
+}
+
+.product button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #5e8ca3;
+}
+
+/* Simple responsive tweak */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+    .product img {
+        width: 220px;
+        height: 220px;
+    }
+
+

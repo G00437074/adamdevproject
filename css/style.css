@@ -669,9 +669,10 @@ body {
 /* Grid layout similar to album cards */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* ✅ two per row */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem;
 }
+
 /* Individual product card */
 .product {
     display: grid;
@@ -695,10 +696,8 @@ body {
 
 /* Text area */
 .product h3 {
-    margin: 0 0 0.25rem;
-    font-size: 1.4rem;
+    margin: 0 0 0.3rem;
 }
-
 .product .price {
     margin: 0 0 0.5rem;
     font-weight: 700;
@@ -760,3 +759,43 @@ body {
     }
 
 
+/* ===== Merch Typography Fix ===== */
+
+/* Page title */
+.merch-page h1 {
+    font-family: "Playfair Display", serif;  /* elegant album-style serif */
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Product titles */
+.product h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+/* Price */
+.product .price {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+/* Description text */
+.product p {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    max-width: 420px;
+}
+
+/* Qty + Button text */
+.product form,
+.product input,
+.product button {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.95rem;
+}

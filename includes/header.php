@@ -49,7 +49,7 @@ $username   = $isLoggedIn ? $_SESSION['username'] : '';
   <div class="login-box">
     <span id="closeCreate" class="close-btn" onclick="return closeCreate();">&times;</span>
     <h2>Create Account</h2>
-    <form id="createForm" onsubmit="return createUser();">
+    <form id="createForm" onsubmit="return createUser()">
       <input type="text" id="newUsername" name="username" placeholder="Username" required><br>
       <input type="email" id="newEmail" name="email" placeholder="Email (optional)"><br>
       <input type="password" id="newPassword" name="password" placeholder="Password" required><br>
@@ -126,7 +126,52 @@ $username   = $isLoggedIn ? $_SESSION['username'] : '';
       });
     }
   });
-</script>
 
+
+  function createUser() {
+  console.log('createUser called');
+  const form = document.getElementById('createForm');
+  const msg  = document.getElementById('createMessage');
+  const API_BASE = '/adamdevproject/api/';   // matches your PHP folder
+  const formData = new FormData(form);
+
+  const u = (formData.get('username') || '').trim();
+  const p = (formData.get('password') || '');
+
+  // Client-side password rules (mirror PHP)
+  if (!u || !p) {
+    msg.textContent = 'Please enter a username and password.';
+    return false;
+  }
+  if (p.length < 8 || !/[^\w]/.test(p)) {
+    msg.textContent = 'Password must be at least 8 characters and contain a special character.';
+    return false;
+  }
+
+  fetch(API_BASE + 'create_user.php', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',                 // safe; keeps same session if needed
+      headers: { 'Accept': 'text/plain' }
+    })
+    .then(async r => {
+      const text = await r.text();
+
+      // Show whatever PHP sent (success OR error)
+      console.log('create_user response:', text);
+      msg.textContent = text;
+
+      // If success text contains "created", assume OK and switch back to Login
+      if (/user created/i.test(text) || /created/i.test(text)) {
+        setTimeout(() => { switchToLogin(); }, 1200);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      msg.textContent = 'Error creating account. Please try again.';
+    });
+
+  return false; // keep preventing default
+}
+</script>
 <!-- Main login/create JS (loginUser, createUser, etc.) -->
-<script src="js/login.js"></script>

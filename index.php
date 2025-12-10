@@ -110,8 +110,11 @@
     </section> -->
 </main>
 
-<script src="js/main.js"></script>
 <?php include 'includes/footer.php'; ?>
 
 </body>
+
+<script src="js/login.js"></script>
+
+
 </html>

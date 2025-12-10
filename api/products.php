@@ -1,35 +1,19 @@
 <?php
 // api/products.php
 
-// Get all products from `merch` table
-function getAllProducts(mysqli $conn): array {
-    $products = [];
-
-    $sql = "SELECT id, name, price, image, description FROM merch";
-    if ($result = $conn->query($sql)) {
-        while ($row = $result->fetch_assoc()) {
-            $products[$row['id']] = $row;
-        }
-        $result->free();
-    }
-
-    return $products;
+// Get all products
+function getAllProducts(PDO $pdo): array {
+    $stmt = $pdo->query("SELECT id, name, price, image, description FROM merch");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Get a single product by ID
-function getProductById(mysqli $conn, int $id): ?array {
-    $stmt = $conn->prepare(
+// Get one product by ID
+function getProductById(PDO $pdo, int $id): ?array {
+    $stmt = $pdo->prepare(
         "SELECT id, name, price, image, description FROM merch WHERE id = ?"
     );
-    if (!$stmt) {
-        return null;
-    }
+    $stmt->execute([$id]);
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $stmt->bind_param('i', $id);
-    $stmt->execute();
-    $result  = $stmt->get_result();
-    $product = $result->fetch_assoc() ?: null;
-    $stmt->close();
-
-    return $product;
+    return $product ?: null;
 }

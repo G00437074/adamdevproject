@@ -48,7 +48,12 @@ $preferredSize = $_COOKIE['preferred_size'] ?? '';
     <meta charset="UTF-8">
 
     <!-- Page title -->
-    <title>Laufey Merch</title>
+    <title>Laufey Music - Merch</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/adamdevproject/images/laufeyicon2.png?v=3" type="image/png">
+    <link rel="apple-touch-icon" href="/adamdevproject/images/laufeyicon2.png?v=3">
+
 
     <!-- Main site stylesheet -->
     <link rel="stylesheet" href="/adamdevproject/css/style.css?v=23">

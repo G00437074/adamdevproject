@@ -5,6 +5,10 @@
     <!-- Page title shown in the browser tab -->
     <title>Laufey Music – Albums</title>
 
+    <!-- Favicon -->
+    <link rel="icon" href="/adamdevproject/images/laufeyicon2.png?v=3" type="image/png">
+    <link rel="apple-touch-icon" href="/adamdevproject/images/laufeyicon2.png?v=3">
+
     <!-- Main stylesheet for the website -->
     <!-- Version number (?v=20) helps prevent browser caching issues -->
     <link rel="stylesheet" href="/adamdevproject/css/style.css?v=20">

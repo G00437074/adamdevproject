@@ -3,11 +3,13 @@
 
 <head>
     <!-- Page title shown in the browser tab -->
-    <title>Laufey Music</title>
+    <title>Laufey Music - Tour</title>
+    <link rel="icon" href="/adamdevproject/images/laufeyicon2.png?v=3" type="image/png">
+    <link rel="apple-touch-icon" href="/adamdevproject/images/laufeyicon2.png?v=3">
 
-    <!-- Main site stylesheet -->
-    <!-- Cache-busting version number ensures latest CSS loads -->
-    <link rel="stylesheet" href="/adamdevproject/css/style.css?v=10">
+<!-- Main site stylesheet -->
+<link rel="stylesheet" href="/adamdevproject/css/style.css?v=23">
+
 </head>
 
 <body>

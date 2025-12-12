@@ -16,6 +16,7 @@ $username = $isLoggedIn ? $_SESSION['username'] : '';
   <img src="images/laufey_header.jpeg" alt="Laufey Header" class="header-image">
 </header>
 
+
 <!-- Main site navigation -->
 <nav class="site-nav">
   <ul class="nav-links">

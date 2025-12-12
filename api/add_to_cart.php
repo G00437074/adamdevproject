@@ -1,40 +1,69 @@
 <?php
+// api/add_to_cart.php
 session_start();
-include 'cart_functions.php';
 
-$id = isset($_POST['id']) ? htmlspecialchars($_POST['id']) : '';
-$value = isset($_POST['value']) ? (int)$_POST['value'] : 0;
+header('Content-Type: application/json');
 
-// Ensure the cart exists
+include_once __DIR__ . '/../includes/db_connect.php';   // $pdo
+require_once __DIR__ . '/products.php';
+
+if (!isset($pdo)) {
+    echo json_encode(['status' => 'error', 'message' => 'DB connection not available']);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
+    exit;
+}
+
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Check if the item exists in the cart
-if (isset($_SESSION['cart'][$id])) {
-    // Update the quantity
-    $_SESSION['cart'][$id]['quantity'] += $value;
+$id   = (int)($_POST['id'] ?? 0);
+$qty  = (int)($_POST['quantity'] ?? 1);
+$size = trim($_POST['size'] ?? '');
 
-    // Remove the item if the quantity drops to 0 or below
-    if ($_SESSION['cart'][$id]['quantity'] <= 0) {
-        unset($_SESSION['cart'][$id]);
-    }
+if ($id <= 0 || $qty <= 0) {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid product or quantity']);
+    exit;
 }
 
+if ($size === '') {
+    echo json_encode(['status' => 'error', 'message' => 'Please select a size']);
+    exit;
+}
 
+// Verify product exists
+$product = getProductById($pdo, $id);
+if (!$product) {
+    echo json_encode(['status' => 'error', 'message' => 'Product not found']);
+    exit;
+}
 
-$return_info = countItemsAndPrice();
-$no_of_items = $return_info['no_of_items'];
-$total_price = $return_info['total_price'];
+// Unique key per product+size
+$key = $id . '_' . $size;
 
-  $total_price = number_format($total_price, 2);
+if (isset($_SESSION['cart'][$key])) {
+    $_SESSION['cart'][$key]['quantity'] += $qty;
+} else {
+    $_SESSION['cart'][$key] = [
+        'id'       => $id,
+        'size'     => $size,
+        'quantity' => $qty
+    ];
+}
 
-// Display cart info
-echo "<a href=\"#\" onclick='showShoppingBasket()'><img src=\"images/cart.jpg\" width=\"40\"></a>";
-echo "<span style='display:inline-block; margin-left:10px;'>";
-echo "<span style='background-color: #c71585; color: white; padding: 2px 6px; border-radius: 4px;'>";
-echo $no_of_items;
-echo "</span>";
-echo "<br>";
-echo "€" . $total_price;
-echo "</span>";
+// Total items (sum of quantities)
+$cartCount = 0;
+foreach ($_SESSION['cart'] as $item) {
+    $cartCount += (int)($item['quantity'] ?? 0);
+}
+
+echo json_encode([
+    'status'    => 'ok',
+    'message'   => 'Added to cart',
+    'cartCount' => $cartCount
+]);
+exit;

@@ -112,6 +112,8 @@ foreach ($_SESSION['cart'] as $key => $item) {
             </tfoot>
         </table>
 
+        <a href="checkout.php" id="empty-cart" style="display:inline-block;text-align:center;">Checkout</a>
+
         <br>
         <button type="button" id="empty-cart">Empty Cart</button>
 

@@ -116,7 +116,7 @@ foreach ($_SESSION['cart'] as $key => $item) {
 
             <div class="cart-actions">
                 <a href="checkout.php" id="checkout-btn">Checkout</a>
-                <button type="button" id="empty-cart">Empty Cart</button>
+                <button type="button" id="empty-cart" class="cart-btn">Empty Cart</button>
             </div>
 
 

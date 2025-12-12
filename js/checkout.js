@@ -21,10 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
   
-        msg.textContent = `✅ ${data.message} (Order #${data.orderId})`;
+        msg.textContent = `${data.message} (Order #${data.orderId})`;
         // redirect to a simple confirmation page if you want:
         // window.location.href = `order_confirmation.php?id=${data.orderId}`;
-        setTimeout(() => window.location.href = "merch.php", 800);
+        //setTimeout(() => window.location.href = "merch.php", 800);
   
       } catch (err) {
         console.error(err);

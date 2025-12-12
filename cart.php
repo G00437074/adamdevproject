@@ -52,72 +52,75 @@ foreach ($_SESSION['cart'] as $key => $item) {
     <?php include 'includes/header.php'; ?>
 
     <main class="cart-page">
-    <h1>Your Cart</h1>
-    <p><a href="merch.php">← Back to Merch</a></p>
+        <h1>Your Cart</h1>
+        <p><a href="merch.php">← Back to Merch</a></p>
 
-    <?php if (empty($cartItems)): ?>
-        <p>Your cart is empty.</p>
-    <?php else: ?>
+        <?php if (empty($cartItems)): ?>
+            <p>Your cart is empty.</p>
+        <?php else: ?>
 
-        <table border="1" cellpadding="8" id="cart-table">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Qty</th>
-                    <th>Total</th>
-                    <th>Remove</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($cartItems as $item): ?>
-                    <tr data-key="<?= htmlspecialchars($item['key']) ?>">
-                        <td>
-                            <?= htmlspecialchars($item['name']) ?>
-                            <?php if (!empty($item['size'])): ?>
-                                <br><small>Size: <?= htmlspecialchars($item['size']) ?></small>
-                            <?php endif; ?>
-                        </td>
-
-
-                        <td class="price-cell" data-price="<?= htmlspecialchars((string)$item['price']) ?>">
-                            €<?= number_format($item['price'], 2) ?>
-                        </td>
-
-                        <td>
-                            <input
-                                type="number"
-                                min="0"
-                                value="<?= (int)$item['quantity'] ?>"
-                                class="qty-input"
-                                data-qty>
-                        </td>
-
-                        <td class="line-total-cell" data-line-total>
-                            €<?= number_format($item['lineTotal'], 2) ?>
-                        </td>
-
-                        <td>
-                            <button type="button" data-remove>✖</button>
-                        </td>
+            <table border="1" cellpadding="8" id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th>Remove</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
+                </thead>
+                <tbody>
+                    <?php foreach ($cartItems as $item): ?>
+                        <tr data-key="<?= htmlspecialchars($item['key']) ?>">
+                            <td>
+                                <?= htmlspecialchars($item['name']) ?>
+                                <?php if (!empty($item['size'])): ?>
+                                    <br><small>Size: <?= htmlspecialchars($item['size']) ?></small>
+                                <?php endif; ?>
+                            </td>
 
-            <tfoot>
-                <tr>
-                    <td colspan="3"><strong>Total</strong></td>
-                    <td colspan="2"><strong id="cart-total">€<?= number_format($total, 2) ?></strong></td>
-                </tr>
-            </tfoot>
-        </table>
 
-        <a href="checkout.php" id="empty-cart" style="display:inline-block;text-align:center;">Checkout</a>
+                            <td class="price-cell" data-price="<?= htmlspecialchars((string)$item['price']) ?>">
+                                €<?= number_format($item['price'], 2) ?>
+                            </td>
 
-        <br>
-        <button type="button" id="empty-cart">Empty Cart</button>
+                            <td>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value="<?= (int)$item['quantity'] ?>"
+                                    class="qty-input"
+                                    data-qty>
+                            </td>
 
-    <?php endif; ?>
+                            <td class="line-total-cell" data-line-total>
+                                €<?= number_format($item['lineTotal'], 2) ?>
+                            </td>
+
+                            <td>
+                                <button type="button" data-remove>✖</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="3"><strong>Total</strong></td>
+                        <td colspan="2"><strong id="cart-total">€<?= number_format($total, 2) ?></strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <br>
+
+            <div class="cart-actions">
+                <a href="checkout.php" id="checkout-btn">Checkout</a>
+                <button type="button" id="empty-cart">Empty Cart</button>
+            </div>
+
+
+        <?php endif; ?>
     </main>
 
     <?php include 'includes/footer.php'; ?>

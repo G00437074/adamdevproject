@@ -1024,5 +1024,30 @@ body {
       padding:0.55rem 1.1rem;
     }
   }
+
+  .cart-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1.25rem;
+  }
+  
+  /* Checkout button styled like your theme */
+  #checkout-btn {
+    display: inline-block;
+    padding: 0.6rem 1.3rem;
+    border-radius: 999px;
+    border: 2px solid #5e8ca3;
+    background: #7fb6c9;
+    color: #fff;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 0 #5e8ca3;
+  }
+  
+  #checkout-btn:hover { background: #6aa4bb; }
+  #checkout-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #5e8ca3; }
+  
   
   

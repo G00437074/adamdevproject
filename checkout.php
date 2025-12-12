@@ -77,7 +77,7 @@ foreach ($cart as $key => $item) {
     <br>
 
     <div style="background:#f7f1cf;border-radius:22px;padding:1.25rem 1.5rem;box-shadow:0 8px 18px rgba(0,0,0,0.12);">
-      <h2 style="font-family:'Playfair Display',serif;margin:0 0 0.75rem;">Customer details</h2>
+      <h2 style="font-family:'Playfair Display',serif;margin:0 0 0.75rem;">Checkout</h2>
 
       <form id="checkout-form">
         <label>
@@ -98,6 +98,26 @@ foreach ($cart as $key => $item) {
         <label>
           City:
           <input name="city" required>
+        </label><br><br>
+
+        <label>
+          Eircode:
+          <input name="eircode" required>
+        </label><br><br>
+
+        <label>
+          Card Name:
+          <input name="cardname" required>
+        </label><br><br>
+
+        <label>
+          Card Number:
+          <input name="card" required>
+        </label><br><br>
+
+        <label>
+          Expiry Date:
+          <input name="expiry" required>
         </label><br><br>
 
         <button type="submit" id="place-order-btn">Place Order</button>

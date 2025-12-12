@@ -120,7 +120,7 @@ foreach ($cart as $key => $item) {
           <input name="expiry" required>
         </label><br><br>
 
-        <button type="submit" id="place-order-btn">Place Order</button>
+        <button type="submit" id="place-order-btn" class="cart-btn">Place Order</button>
       </form>
 
       <p id="checkout-message" style="margin-top:0.75rem;"></p>

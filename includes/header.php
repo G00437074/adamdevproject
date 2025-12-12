@@ -47,6 +47,7 @@ $username = $isLoggedIn ? $_SESSION['username'] : '';
 </nav>
 
 
+
 <!-- Login modal (hidden by default) -->
 <div id="loginModal" class="login-modal" style="display:none;">
   <div class="login-box">

@@ -8,6 +8,7 @@
   -->
   <p>© <?php echo date("Y"); ?> Laufey Music | Designed by Adam Devlin</p>
 
+
 </footer>
 
 <!-- Close the body of the HTML document -->

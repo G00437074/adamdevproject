@@ -35,9 +35,14 @@ if (!empty($_SESSION['cart'])) {
 }
 ?>
 
+<?php
+$preferredSize = $_COOKIE['preferred_size'] ?? '';
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Character encoding -->
     <meta charset="UTF-8">
@@ -51,78 +56,78 @@ if (!empty($_SESSION['cart'])) {
     <!-- Google Fonts used for styling -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- Include site header (navigation, login, etc.) -->
-<?php include 'includes/header.php'; ?>
+    <!-- Include site header (navigation, login, etc.) -->
+    <?php include 'includes/header.php'; ?>
 
-<main class="merch-page">
+    <main class="merch-page">
 
-    <!-- Page heading -->
-    <h1>Laufey Merch</h1>
+        <!-- Page heading -->
+        <h1>Laufey Merch</h1>
 
-    <!-- Link to cart with live item count -->
-    <a href="cart.php" class="view-cart-link">
-        View Cart (<span data-cart-count><?= $cartCount ?></span>)
-    </a>
+        <!-- Link to cart with live item count -->
+        <a href="cart.php" class="view-cart-link">
+            View Cart (<span data-cart-count><?= $cartCount ?></span>)
+        </a>
 
-    <!-- Grid layout for all products -->
-    <div class="product-grid">
+        <!-- Grid layout for all products -->
+        <div class="product-grid">
 
-        <?php foreach ($products as $product): ?>
+            <?php foreach ($products as $product): ?>
 
-            <?php
-            // ----------------------------
-            // Detect clothing products
-            // ----------------------------
-            // This determines whether a size selector should be shown
-            $nameLower  = strtolower($product['name'] ?? '');
-            $isClothing =
-                (strpos($nameLower, 'tee') !== false) ||
-                (strpos($nameLower, 't-shirt') !== false) ||
-                (strpos($nameLower, 'tshirt') !== false) ||
-                (strpos($nameLower, 'hoodie') !== false);
-            ?>
+                <?php
+                // ----------------------------
+                // Detect clothing products
+                // ----------------------------
+                // This determines whether a size selector should be shown
+                $nameLower  = strtolower($product['name'] ?? '');
+                $isClothing =
+                    (strpos($nameLower, 'tee') !== false) ||
+                    (strpos($nameLower, 't-shirt') !== false) ||
+                    (strpos($nameLower, 'tshirt') !== false) ||
+                    (strpos($nameLower, 'hoodie') !== false);
+                ?>
 
-            <!-- Single product card -->
-            <div class="product">
+                <!-- Single product card -->
+                <div class="product">
 
-                <!-- Product image -->
-                <div class="product-image">
-                    <img
-                        src="images/merch/<?php echo htmlspecialchars(basename($product['image'])); ?>"
-                        alt="<?php echo htmlspecialchars($product['name']); ?>"
-                    >
-                </div>
-
-                <!-- Product details -->
-                <div class="product-content">
-
-                    <!-- Product name and price -->
-                    <div class="product-title-row">
-                        <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-                        <p class="price">
-                            €<?php echo number_format((float)$product['price'], 2); ?>
-                        </p>
+                    <!-- Product image -->
+                    <div class="product-image">
+                        <img
+                            src="images/merch/<?php echo htmlspecialchars(basename($product['image'])); ?>"
+                            alt="<?php echo htmlspecialchars($product['name']); ?>">
                     </div>
 
-                    <!-- Product description -->
-                    <p class="product-description">
-                        <?php echo htmlspecialchars($product['description']); ?>
-                    </p>
+                    <!-- Product details -->
+                    <div class="product-content">
 
-                    <!-- ----------------------------
+                        <!-- Product name and price -->
+                        <div class="product-title-row">
+                            <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                            <p class="price">
+                                €<?php echo number_format((float)$product['price'], 2); ?>
+                            </p>
+                        </div>
+
+                        <!-- Product description -->
+                        <p class="product-description">
+                            <?php echo htmlspecialchars($product['description']); ?>
+                        </p>
+
+                        <!-- ----------------------------
                          Add to Cart Form
                          ---------------------------- -->
-                    <!-- Submitted using JavaScript fetch (AJAX) -->
-                    <form action="api/add_to_cart.php" method="post" class="product-form">
+                        <!-- Submitted using JavaScript fetch (AJAX) -->
+                        <form action="api/add_to_cart.php" method="post" class="product-form">
 
-                        <!-- Hidden product ID -->
-                        <input type="hidden" name="id" value="<?php echo (int)$product['id']; ?>">
+                            <!-- Hidden product ID -->
+                            <input type="hidden" name="id" value="<?php echo (int)$product['id']; ?>">
 
-                        <?php if ($isClothing): ?>
-                            <!-- Size selector for clothing items -->
-                            <label>
+                            <?php if ($isClothing): ?>
+                                <!-- Size selector for clothing items -->
+                                <!--<label>
                                 Size:
                                 <select name="size" required>
                                     <option value="">Select</option>
@@ -131,34 +136,68 @@ if (!empty($_SESSION['cart'])) {
                                     <option value="L">L</option>
                                     <option value="XL">XL</option>
                                 </select>
+                            </label> -->
+
+                                <!-- Size selection for clothing products -->
+                                <label>
+                                    <!-- Label text shown to the user -->
+                                    Size:
+
+                                    <!-- Dropdown menu for selecting a clothing size -->
+                                    <!-- 'required' ensures the user must choose a size before submitting -->
+                                    <select name="size" required>
+
+                                        <!-- Default option (no size selected) -->
+                                        <option value="">Select</option>
+
+                                        <?php
+                                        // Loop through an array of available sizes
+                                        // This avoids repeating HTML for each size option
+                                        foreach (['S', 'M', 'L', 'XL'] as $s):
+                                        ?>
+
+                                            <!-- One size option -->
+                                            <!-- If this size matches the preferred size, mark it as selected -->
+                                            <option
+                                                value="<?= $s ?>"
+                                                <?= $preferredSize === $s ? 'selected' : '' ?>>
+
+                                                <!-- Display the size label -->
+                                                <?= $s ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </label>
+
+
+                            <?php else: ?>
+                                <!-- Non-clothing items do not require a size -->
+                                <input type="hidden" name="size" value="">
+                            <?php endif; ?>
+
+                            <!-- Quantity input -->
+                            <label>
+                                Qty:
+                                <input type="number" name="quantity" value="1" min="1">
                             </label>
-                        <?php else: ?>
-                            <!-- Non-clothing items do not require a size -->
-                            <input type="hidden" name="size" value="">
-                        <?php endif; ?>
 
-                        <!-- Quantity input -->
-                        <label>
-                            Qty:
-                            <input type="number" name="quantity" value="1" min="1">
-                        </label>
+                            <!-- Submit button -->
+                            <button type="submit">Add to cart</button>
+                        </form>
 
-                        <!-- Submit button -->
-                        <button type="submit">Add to cart</button>
-                    </form>
-
+                    </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+            <?php endforeach; ?>
+        </div>
 
-</main>
+    </main>
 
-<!-- Include site footer -->
-<?php include 'includes/footer.php'; ?>
+    <!-- Include site footer -->
+    <?php include 'includes/footer.php'; ?>
 
-<!-- JavaScript that handles add-to-cart behaviour -->
-<script src="/adamdevproject/js/merch.js?v=3"></script>
+    <!-- JavaScript that handles add-to-cart behaviour -->
+    <script src="/adamdevproject/js/merch.js?v=3"></script>
 
 </body>
+
 </html>

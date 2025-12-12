@@ -43,6 +43,16 @@ $id   = (int)($_POST['id'] ?? 0);        // Product ID
 $qty  = (int)($_POST['quantity'] ?? 1);  // Quantity (default is 1)
 $size = trim($_POST['size'] ?? '');      // Clothing size (if applicable)
 
+// If a size was selected, remember it for future visits
+if (!empty($size)) {
+    setcookie(
+        'preferred_size',
+        $size,
+        time() + (60 * 60 * 24 * 30), // 30 days
+        '/'
+    );
+}
+
 // Basic validation to ensure valid input
 if ($id <= 0 || $qty <= 0) {
     echo json_encode([
@@ -95,7 +105,7 @@ $key = ($size !== '') ? ($id . '_' . $size) : (string)$id;
 // If the item already exists in the cart, increase its quantity
 if (isset($_SESSION['cart'][$key])) {
     $_SESSION['cart'][$key]['quantity'] += $qty;
-} 
+}
 // Otherwise, add the item as a new cart entry
 else {
     $_SESSION['cart'][$key] = [

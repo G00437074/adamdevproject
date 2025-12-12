@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include_once 'includes/db_connect.php';  // $pdo
+include_once 'includes/db_connect.php';  // provides $pdo
 require_once 'api/products.php';
 
 if (!isset($pdo)) {
@@ -15,59 +15,96 @@ if (!isset($_SESSION['cart'])) {
 $action = $_POST['action'] ?? $_GET['action'] ?? 'view';
 
 switch ($action) {
-    case 'add':
-        $id  = (int)($_POST['id'] ?? 0);
-        $qty = (int)($_POST['quantity'] ?? 1);
+    case 'add': {
+        $id   = (int)($_POST['id'] ?? 0);
+        $qty  = (int)($_POST['quantity'] ?? 1);
+        $size = trim($_POST['size'] ?? '');
 
-        $product = getProductById($pdo, $id);
-        if ($product && $qty > 0) {
-            $_SESSION['cart'][$id] = ($_SESSION['cart'][$id] ?? 0) + $qty;
+        if ($id > 0 && $qty > 0 && $size !== '') {
+            // Unique key per product + size
+            $key = $id . '_' . $size;
+
+            if (isset($_SESSION['cart'][$key])) {
+                $_SESSION['cart'][$key]['quantity'] += $qty;
+            } else {
+                $_SESSION['cart'][$key] = [
+                    'id'       => $id,
+                    'size'     => $size,
+                    'quantity' => $qty
+                ];
+            }
         }
+
         header("Location: cart.php");
         exit;
+    }
 
-    case 'update':
-        foreach ($_POST['quantities'] ?? [] as $id => $qty) {
-            $id  = (int)$id;
+    case 'update': {
+        // quantities[] now uses the cart key, not just product id
+        foreach (($_POST['quantities'] ?? []) as $key => $qty) {
             $qty = (int)$qty;
 
             if ($qty <= 0) {
-                unset($_SESSION['cart'][$id]);
+                unset($_SESSION['cart'][$key]);
             } else {
-                $_SESSION['cart'][$id] = $qty;
+                if (isset($_SESSION['cart'][$key])) {
+                    $_SESSION['cart'][$key]['quantity'] = $qty;
+                }
             }
+        }
+
+        header("Location: cart.php");
+        exit;
+    }
+
+    case 'remove': {
+        $key = $_GET['key'] ?? '';
+        if ($key !== '') {
+            unset($_SESSION['cart'][$key]);
         }
         header("Location: cart.php");
         exit;
+    }
 
-    case 'remove':
-        $id = (int)($_GET['id'] ?? 0);
-        unset($_SESSION['cart'][$id]);
-        header("Location: cart.php");
-        exit;
-
-    case 'empty':
+    case 'empty': {
         $_SESSION['cart'] = [];
         header("Location: cart.php");
         exit;
+    }
+
+    case 'view':
+    default:
+        break;
 }
 
 // Build cart display
 $cartItems = [];
-$total = 0;
+$total = 0.0;
 
-foreach ($_SESSION['cart'] as $productId => $qty) {
-    $product = getProductById($pdo, (int)$productId);
-    if (!$product) continue;
+foreach ($_SESSION['cart'] as $key => $item) {
+    $productId = (int)($item['id'] ?? 0);
+    $qty       = (int)($item['quantity'] ?? 0);
+    $size      = (string)($item['size'] ?? '');
 
-    $lineTotal = $product['price'] * $qty;
+    if ($productId <= 0 || $qty <= 0) {
+        continue;
+    }
+
+    $product = getProductById($pdo, $productId);
+    if (!$product) {
+        continue;
+    }
+
+    $lineTotal = ((float)$product['price']) * $qty;
     $total += $lineTotal;
 
     $cartItems[] = [
-        'id' => $productId,
-        'name' => $product['name'],
-        'price' => $product['price'],
-        'quantity' => $qty,
+        'key'       => $key,                 // IMPORTANT
+        'id'        => $productId,
+        'name'      => $product['name'],
+        'price'     => (float)$product['price'],
+        'size'      => $size,
+        'quantity'  => $qty,
         'lineTotal' => $lineTotal
     ];
 }
@@ -76,7 +113,7 @@ foreach ($_SESSION['cart'] as $productId => $qty) {
 <html>
 <head>
     <title>Your Cart</title>
-    <link rel="stylesheet" href="/adamdevproject/css/style.css?v=20">
+    <link rel="stylesheet" href="/adamdevproject/css/style.css?v=21">
 </head>
 <body>
 
@@ -102,13 +139,25 @@ foreach ($_SESSION['cart'] as $productId => $qty) {
 
         <?php foreach ($cartItems as $item): ?>
         <tr>
-            <td><?= htmlspecialchars($item['name']) ?></td>
+            <td>
+                <?= htmlspecialchars($item['name']) ?>
+                <?php if (!empty($item['size'])): ?>
+                    <br><small>Size: <?= htmlspecialchars($item['size']) ?></small>
+                <?php endif; ?>
+            </td>
             <td>€<?= number_format($item['price'], 2) ?></td>
             <td>
-                <input type="number" name="quantities[<?= $item['id'] ?>]" value="<?= $item['quantity'] ?>" min="0">
+                <input
+                    type="number"
+                    name="quantities[<?= htmlspecialchars($item['key']) ?>]"
+                    value="<?= (int)$item['quantity'] ?>"
+                    min="0"
+                >
             </td>
             <td>€<?= number_format($item['lineTotal'], 2) ?></td>
-            <td><a href="cart.php?action=remove&id=<?= $item['id'] ?>">✖</a></td>
+            <td>
+                <a href="cart.php?action=remove&key=<?= urlencode($item['key']) ?>">✖</a>
+            </td>
         </tr>
         <?php endforeach; ?>
 

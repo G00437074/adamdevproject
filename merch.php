@@ -49,6 +49,28 @@ $products = getAllProducts($pdo);
     <p class="product-description"><?php echo htmlspecialchars($product['description']); ?></p>
 
     <form action="cart.php" method="post" class="product-form">
+  <input type="hidden" name="action" value="add">
+  <input type="hidden" name="id" value="<?php echo (int)$product['id']; ?>">
+
+  <label>
+    Size:
+    <select name="size" required>
+      <option value="">Select</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+    </select>
+  </label>
+
+  <label>
+    Qty:
+    <input type="number" name="quantity" value="1" min="1">
+  </label>
+
+  <button type="submit">Add to cart</button>
+</form>
+
       <input type="hidden" name="action" value="add">
       <input type="hidden" name="id" value="<?php echo (int)$product['id']; ?>">
       <label>

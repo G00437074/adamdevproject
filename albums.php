@@ -2,71 +2,98 @@
 <html>
 
 <head>
+    <!-- Page title shown in the browser tab -->
     <title>Laufey Music – Albums</title>
 
-    <!-- Main stylesheet for your site -->
+    <!-- Main stylesheet for the website -->
+    <!-- Version number (?v=20) helps prevent browser caching issues -->
     <link rel="stylesheet" href="/adamdevproject/css/style.css?v=20">
 </head>
 
 <body>
 
-    <!-- Include the site header (navigation, logo, etc.) -->
+    <!-- Include the site header (logo, navigation, login, etc.) -->
     <?php include 'includes/header.php'; ?>
 
+    <!-- Main page container -->
     <div class="home-container">
+
+        <!-- Albums section -->
         <section class="albums-section">
+
+            <!-- Section heading -->
             <h2>Albums</h2>
 
+            <!-- Intro text above the albums grid -->
             <p class="albums-intro">
-                <!-- Small description above the albums grid -->
                 Explore Laufey’s discography and view tracklists for each album.
             </p>
 
+            <!-- Grid layout that holds all album cards -->
             <div class="albums-grid">
-                <!-- This grid holds all album cards -->
 
                 <?php
-                // Connect to the database
+                // ---------------------------------
+                // Database connection
+                // ---------------------------------
+
+                // Include database connection file (creates $pdo)
                 require_once 'includes/db_connect.php';
 
-                // SQL query to fetch all albums
-                // Ordered by most recent release year first
+                // ---------------------------------
+                // Fetch album data
+                // ---------------------------------
+
+                // SQL query to retrieve all albums
+                // Albums are ordered by newest release first
                 $sql = "SELECT id, title, release_year, cover_img, spotify_embed
                         FROM albums
                         ORDER BY release_year DESC";
 
-                // Run the query
+                // Execute the query
                 $stmt = $pdo->query($sql);
 
-                // Fetch the results as an associative array
+                // Fetch all album records as an associative array
                 $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                // Loop through each album and build the HTML card
+                // ---------------------------------
+                // Output each album card
+                // ---------------------------------
+
                 foreach ($albums as $album): ?>
-                    
-                    <!-- One album card -->
+
+                    <!-- Single album card -->
+                    <!-- data-album-id is used by JavaScript to load tracklists -->
                     <article class="album-card" data-album-id="<?= $album['id'] ?>">
-                        
-                        <!-- Album cover -->
+
+                        <!-- Album cover image -->
                         <div class="album-cover-wrap">
-                            <img src="<?= $album['cover_img'] ?>" class="album-cover"
-                                 alt="<?= htmlspecialchars($album['title']) ?>">
+                            <img
+                                src="<?= $album['cover_img'] ?>"
+                                class="album-cover"
+                                alt="<?= htmlspecialchars($album['title']) ?>">
                         </div>
 
-                        <!-- Album title + release year + toggle button -->
+                        <!-- Album metadata -->
                         <div class="album-meta">
+
+                            <!-- Album title -->
                             <h3><?= htmlspecialchars($album['title']) ?></h3>
+
+                            <!-- Release year -->
                             <p class="album-year"><?= $album['release_year'] ?></p>
 
-                            <!-- Clicking this button loads/shows the tracklist -->
-                            <button class="btn album-toggle">View Tracklist</button>
+                            <!-- Button to show/hide the tracklist -->
+                            <button class="btn album-toggle">
+                                View Tracklist
+                            </button>
                         </div>
 
-                        <!-- Hidden tracklist area (opened when user clicks button) -->
+                        <!-- Tracklist container (hidden by default) -->
                         <div class="album-tracklist" hidden>
 
                             <?php if (!empty($album['spotify_embed'])): ?>
-                                <!-- Optional Spotify player embed -->
+                                <!-- Optional Spotify embed player -->
                                 <div class="album-embed-wrap">
                                     <iframe
                                         src="<?= htmlspecialchars($album['spotify_embed']) ?>"
@@ -79,7 +106,7 @@
                                 </div>
                             <?php endif; ?>
 
-                            <!-- Tracklist content gets loaded here by JS -->
+                            <!-- Tracklist content loaded dynamically via JavaScript -->
                             <div class="album-tracklist-inner">
                                 Loading tracks...
                             </div>
@@ -92,7 +119,7 @@
         </section>
     </div>
 
-    <!-- JavaScript that handles show/hide + fetching songs -->
+    <!-- JavaScript file that handles album toggling and track loading -->
     <script src="/adamdevproject/js/albums.js?v=1"></script>
 
     <!-- Include the site footer -->

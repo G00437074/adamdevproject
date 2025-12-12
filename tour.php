@@ -2,41 +2,63 @@
 <html>
 
 <head>
+    <!-- Page title shown in the browser tab -->
     <title>Laufey Music</title>
-    <!-- IMPORTANT: correct path + cache bust -->
+
+    <!-- Main site stylesheet -->
+    <!-- Cache-busting version number ensures latest CSS loads -->
     <link rel="stylesheet" href="/adamdevproject/css/style.css?v=10">
 </head>
 
-
 <body>
 
-
-
-
+    <!-- Include the site header (navigation, login, etc.) -->
     <?php include 'includes/header.php'; ?>
 
-
+    <!-- =========================
+         Tour Section
+         ========================= -->
     <section class="tour-preview">
+
+        <!-- Section heading -->
         <h2>Tour</h2>
 
-        <!-- NEW: list of all tour names -->
+        <!-- List of tour names -->
+        <!-- This is populated dynamically using JavaScript -->
         <div id="tourNameList" class="tour-name-list">
-            <!-- JS will populate this -->
+            <!-- JS will insert tour name buttons/links here -->
         </div>
 
+        <!-- Tour filter controls -->
         <div class="tour-controls">
-            <button class="tour-filter active" data-mode="current">Current Tour</button>
-            <button class="tour-filter" data-mode="past">Past Tours</button>
-            <input type="text" id="tourSearch" placeholder="Search city or venue">
+
+            <!-- Filter buttons for current and past tours -->
+            <button class="tour-filter active" data-mode="current">
+                Current Tour
+            </button>
+
+            <button class="tour-filter" data-mode="past">
+                Past Tours
+            </button>
+
+            <!-- Search input for filtering by city or venue -->
+            <input
+                type="text"
+                id="tourSearch"
+                placeholder="Search city or venue">
         </div>
 
-        <div id="tour-list">Loading tour dates...</div>
+        <!-- Container where tour dates are displayed -->
+        <!-- Content is loaded via AJAX in tour.js -->
+        <div id="tour-list">
+            Loading tour dates...
+        </div>
     </section>
 
-
-    </main>
-
+    <!-- JavaScript file that loads and filters tour dates -->
     <script src="js/tour.js"></script>
+
+    <!-- Include the site footer -->
     <?php include 'includes/footer.php'; ?>
 
 </body>

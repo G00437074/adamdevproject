@@ -41,81 +41,84 @@ foreach ($_SESSION['cart'] as $key => $item) {
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Your Cart</title>
     <link rel="stylesheet" href="/adamdevproject/css/style.css?v=22">
 </head>
+
 <body>
 
-<?php include 'includes/header.php'; ?>
+    <?php include 'includes/header.php'; ?>
 
-<h1>Your Cart</h1>
-<p><a href="merch.php">← Back to Merch</a></p>
+    <h1>Your Cart</h1>
+    <p><a href="merch.php">← Back to Merch</a></p>
 
-<?php if (empty($cartItems)): ?>
-    <p>Your cart is empty.</p>
-<?php else: ?>
+    <?php if (empty($cartItems)): ?>
+        <p>Your cart is empty.</p>
+    <?php else: ?>
 
-<table border="1" cellpadding="8" id="cart-table">
-    <thead>
-        <tr>
-            <th>Item</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Total</th>
-            <th>Remove</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($cartItems as $item): ?>
-        <tr data-key="<?= htmlspecialchars($item['key']) ?>">
-            <td>
-                <?= htmlspecialchars($item['name']) ?>
-                <?php if ($item['size'] !== ''): ?>
-                    <br><small>Size: <?= htmlspecialchars($item['size']) ?></small>
-                <?php endif; ?>
-            </td>
+        <table border="1" cellpadding="8" id="cart-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($cartItems as $item): ?>
+                    <tr data-key="<?= htmlspecialchars($item['key']) ?>">
+                        <td>
+                            <?= htmlspecialchars($item['name']) ?>
+                            <?php if (!empty($item['size'])): ?>
+                                <br><small>Size: <?= htmlspecialchars($item['size']) ?></small>
+                            <?php endif; ?>
+                        </td>
 
-            <td class="price-cell" data-price="<?= htmlspecialchars((string)$item['price']) ?>">
-                €<?= number_format($item['price'], 2) ?>
-            </td>
 
-            <td>
-                <input
-                    type="number"
-                    min="0"
-                    value="<?= (int)$item['quantity'] ?>"
-                    class="qty-input"
-                    data-qty
-                >
-            </td>
+                        <td class="price-cell" data-price="<?= htmlspecialchars((string)$item['price']) ?>">
+                            €<?= number_format($item['price'], 2) ?>
+                        </td>
 
-            <td class="line-total-cell" data-line-total>
-                €<?= number_format($item['lineTotal'], 2) ?>
-            </td>
+                        <td>
+                            <input
+                                type="number"
+                                min="0"
+                                value="<?= (int)$item['quantity'] ?>"
+                                class="qty-input"
+                                data-qty>
+                        </td>
 
-            <td>
-                <button type="button" data-remove>✖</button>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
+                        <td class="line-total-cell" data-line-total>
+                            €<?= number_format($item['lineTotal'], 2) ?>
+                        </td>
 
-    <tfoot>
-        <tr>
-            <td colspan="3"><strong>Total</strong></td>
-            <td colspan="2"><strong id="cart-total">€<?= number_format($total, 2) ?></strong></td>
-        </tr>
-    </tfoot>
-</table>
+                        <td>
+                            <button type="button" data-remove>✖</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
 
-<br>
-<button type="button" id="empty-cart">Empty Cart</button>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total</strong></td>
+                    <td colspan="2"><strong id="cart-total">€<?= number_format($total, 2) ?></strong></td>
+                </tr>
+            </tfoot>
+        </table>
 
-<?php endif; ?>
+        <br>
+        <button type="button" id="empty-cart">Empty Cart</button>
 
-<?php include 'includes/footer.php'; ?>
+    <?php endif; ?>
 
-<script src="/adamdevproject/js/cart.js?v=1"></script>
+    <?php include 'includes/footer.php'; ?>
+
+    <script src="/adamdevproject/js/cart.js?v=1"></script>
 </body>
+
 </html>

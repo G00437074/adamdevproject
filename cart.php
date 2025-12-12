@@ -51,6 +51,7 @@ foreach ($_SESSION['cart'] as $key => $item) {
 
     <?php include 'includes/header.php'; ?>
 
+    <main class="cart-page">
     <h1>Your Cart</h1>
     <p><a href="merch.php">← Back to Merch</a></p>
 
@@ -115,6 +116,7 @@ foreach ($_SESSION['cart'] as $key => $item) {
         <button type="button" id="empty-cart">Empty Cart</button>
 
     <?php endif; ?>
+    </main>
 
     <?php include 'includes/footer.php'; ?>
 

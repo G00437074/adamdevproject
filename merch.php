@@ -34,26 +34,32 @@ $products = getAllProducts($pdo);
 
     <div class="product-grid">
         <?php foreach ($products as $product): ?>
-            <div class="product">
-            <img 
-    src="images/merch/<?php echo htmlspecialchars(basename($product['image'])); ?>" 
-    alt="<?php echo htmlspecialchars($product['name']); ?>"
->
+           <div class="product">
+  <div class="product-image">
+    <img src="images/merch/<?php echo htmlspecialchars(basename($product['image'])); ?>"
+         alt="<?php echo htmlspecialchars($product['name']); ?>">
+  </div>
 
-                <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-                <p class="price">€<?php echo number_format($product['price'], 2); ?></p>
-                <p><?php echo htmlspecialchars($product['description']); ?></p>
+  <div class="product-content">
+    <div class="product-title-row">
+      <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+      <p class="price">€<?php echo number_format($product['price'], 2); ?></p>
+    </div>
 
-                <form action="cart.php" method="post">
-                    <input type="hidden" name="action" value="add">
-                    <input type="hidden" name="id" value="<?php echo (int)$product['id']; ?>">
-                    <label>
-                        Qty:
-                        <input type="number" name="quantity" value="1" min="1">
-                    </label>
-                    <button type="submit">Add to cart</button>
-                </form>
-            </div>
+    <p class="product-description"><?php echo htmlspecialchars($product['description']); ?></p>
+
+    <form action="cart.php" method="post" class="product-form">
+      <input type="hidden" name="action" value="add">
+      <input type="hidden" name="id" value="<?php echo (int)$product['id']; ?>">
+      <label>
+        Qty:
+        <input type="number" name="quantity" value="1" min="1">
+      </label>
+      <button type="submit">Add to cart</button>
+    </form>
+  </div>
+</div>
+
         <?php endforeach; ?>
     </div>
 

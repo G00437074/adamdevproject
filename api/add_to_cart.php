@@ -1,21 +1,29 @@
 <?php
 // api/add_to_cart.php
+// This file handles adding products to the shopping cart using PHP sessions
+
+// Start the session so we can store and access cart data
 session_start();
 
+// Tell the browser that this API will return JSON data
 header('Content-Type: application/json');
 
-include_once __DIR__ . '/../includes/db_connect.php'; // $pdo
+// Include the database connection file (creates $pdo)
+include_once __DIR__ . '/../includes/db_connect.php';
+
+// Include product helper functions (e.g. getProductById)
 require_once __DIR__ . '/products.php';
 
+// Check that the database connection exists
 if (!isset($pdo)) {
     echo json_encode([
         'status' => 'error',
         'message' => 'Database connection not available'
     ]);
-    exit;
+    exit; // Stop script execution if DB is missing
 }
 
-// Only accept POST requests
+// Only allow POST requests (prevents accessing this file directly via browser)
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode([
         'status' => 'error',
@@ -24,17 +32,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Ensure cart exists
+// If the cart does not exist in the session, create an empty cart
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Read inputs
-$id   = (int)($_POST['id'] ?? 0);
-$qty  = (int)($_POST['quantity'] ?? 1);
-$size = trim($_POST['size'] ?? '');
+// Read data sent from the form or AJAX request
+// Use default values if data is missing
+$id   = (int)($_POST['id'] ?? 0);        // Product ID
+$qty  = (int)($_POST['quantity'] ?? 1);  // Quantity (default is 1)
+$size = trim($_POST['size'] ?? '');      // Clothing size (if applicable)
 
-// Basic validation
+// Basic validation to ensure valid input
 if ($id <= 0 || $qty <= 0) {
     echo json_encode([
         'status' => 'error',
@@ -43,7 +52,8 @@ if ($id <= 0 || $qty <= 0) {
     exit;
 }
 
-// Fetch product (ensures valid product ID)
+// Retrieve the product from the database
+// This also confirms the product ID actually exists
 $product = getProductById($pdo, $id);
 if (!$product) {
     echo json_encode([
@@ -53,15 +63,17 @@ if (!$product) {
     exit;
 }
 
-// Detect clothing by product name
+// Convert product name to lowercase for easier checking
 $nameLower = strtolower($product['name'] ?? '');
+
+// Check if the product is clothing based on keywords in its name
 $isClothing =
     strpos($nameLower, 'tee') !== false ||
     strpos($nameLower, 't-shirt') !== false ||
     strpos($nameLower, 'tshirt') !== false ||
     strpos($nameLower, 'hoodie') !== false;
 
-// Validate size only for clothing
+// If the item is clothing, a size must be selected
 if ($isClothing && $size === '') {
     echo json_encode([
         'status' => 'error',
@@ -70,18 +82,22 @@ if ($isClothing && $size === '') {
     exit;
 }
 
-// Force empty size for non-clothing items
+// If the item is NOT clothing, ignore any size value
 if (!$isClothing) {
     $size = '';
 }
 
-// Build unique cart key
+// Create a unique key for the cart item
+// Example: "5_M" for product ID 5 with size M
+// Example: "3" for a non-clothing product
 $key = ($size !== '') ? ($id . '_' . $size) : (string)$id;
 
-// Add or update cart item
+// If the item already exists in the cart, increase its quantity
 if (isset($_SESSION['cart'][$key])) {
     $_SESSION['cart'][$key]['quantity'] += $qty;
-} else {
+} 
+// Otherwise, add the item as a new cart entry
+else {
     $_SESSION['cart'][$key] = [
         'id'       => $id,
         'size'     => $size,
@@ -89,16 +105,17 @@ if (isset($_SESSION['cart'][$key])) {
     ];
 }
 
-// Calculate cart count (sum of quantities)
+// Calculate the total number of items in the cart
 $cartCount = 0;
 foreach ($_SESSION['cart'] as $item) {
     $cartCount += (int)($item['quantity'] ?? 0);
 }
 
-// Success response
+// Send a successful response back to the frontend
 echo json_encode([
     'status'    => 'ok',
     'message'   => 'Added to cart',
     'cartCount' => $cartCount
 ]);
-exit;
+
+exit; // End the script

@@ -1115,6 +1115,176 @@ body {
     width: 220px !important;  /* adjust if you want wider */
   }
 
+  /* =========================
+   Checkout Page (no inline CSS)
+   ========================= */
+
+.checkout-box {
+  background: #f7f1cf;
+  border-radius: 22px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  margin-bottom: 1.5rem;
+}
+
+.checkout-heading {
+  font-family: 'Playfair Display', serif;
+  margin: 0 0 0.75rem;
+}
+
+.checkout-summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checkout-summary-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.checkout-total {
+  text-align: right;
+  font-weight: 700;
+  margin-top: 0.75rem;
+}
+
+.checkout-form label {
+  display: block;
+  margin-bottom: 0.9rem;
+}
+
+.checkout-form input {
+  width: 100%;
+  margin-top: 0.35rem;
+}
+
+.checkout-message {
+  margin-top: 0.75rem;
+}
+
+.checkout-form input {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   Checkout Page (final)
+   ========================= */
+
+/* Card style (this replaces the inline styles you removed) */
+.checkout-box {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+
+  background: #f7f1cf;
+  border-radius: 22px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Headings look like your theme */
+.checkout-heading {
+  font-family: "Playfair Display", serif;
+  margin: 0 0 0.75rem;
+}
+
+/* Summary list resets */
+.checkout-summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Each summary row */
+.checkout-summary-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  align-items: center;
+}
+
+/* Remove border on last item */
+.checkout-summary-item:last-child {
+  border-bottom: none;
+}
+
+/* Total line */
+.checkout-total {
+  text-align: right;
+  font-weight: 700;
+  margin-top: 0.75rem;
+  font-size: 1.1rem;
+}
+
+/* Form grid: 2 columns on desktop */
+.checkout-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Labels stack text above input */
+.checkout-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-family: "Inter", system-ui, sans-serif;
+  min-width: 0;
+}
+
+/* Inputs match your cart style */
+.checkout-form input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+/* Button goes full width of grid row */
+#place-order-btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 0.5rem;
+}
+
+/* Checkout message spacing */
+.checkout-message {
+  margin-top: 0.75rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+}
+
+/* Mobile: switch to 1 column */
+@media (max-width: 700px) {
+  .checkout-form {
+    grid-template-columns: 1fr;
+  }
+
+  #place-order-btn {
+    width: 100%;
+    justify-self: stretch;
+  }
+}
+
+
  
   
 

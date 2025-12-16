@@ -56,17 +56,12 @@ foreach ($cart as $key => $item) {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Page title -->
   <title>Checkout</title>
-
   <!-- Main site stylesheet -->
   <link rel="stylesheet" href="/adamdevproject/css/style.css?v=24">
-
   <!-- Google Fonts used for styling -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
@@ -76,126 +71,87 @@ foreach ($cart as $key => $item) {
 <?php include 'includes/header.php'; ?>
 
 <main class="cart-page">
-
-  <!-- Page heading -->
   <h1>Checkout</h1>
-
-  <!-- Link back to cart page -->
   <p><a class="cart-back" href="cart.php">← Back to Cart</a></p>
 
-  <!-- If cart is empty, show message -->
+  <!-- Check if cart is empty -->
   <?php if (empty($cartItems)): ?>
     <p>Your cart is empty.</p>
   <?php else: ?>
 
-    <!-- ----------------------------
-         Order Summary Section
-         ---------------------------- -->
-    <div style="background:#f7f1cf;border-radius:22px;padding:1.25rem 1.5rem;box-shadow:0 8px 18px rgba(0,0,0,0.12);">
-
-      <!-- Section title -->
-      <h2 style="font-family:'Playfair Display',serif;margin:0 0 0.75rem;">
-        Order summary
-      </h2>
-
-      <!-- List of items in the order -->
-      <ul style="list-style:none;padding:0;margin:0;">
-
+    <!-- Order Summary Section -->
+    <div class="checkout-box">
+      <h2 class="checkout-heading">Order summary</h2>
+      <ul class="checkout-summary-list">
         <?php foreach ($cartItems as $it): ?>
-          <li style="display:flex;justify-content:space-between;gap:1rem;padding:0.5rem 0;border-bottom:1px solid rgba(0,0,0,0.08);">
-
-            <!-- Product details -->
+          <li class="checkout-summary-item">
             <div>
               <strong><?= htmlspecialchars($it['name']) ?></strong>
-
-              <!-- Show size if applicable -->
               <?php if (!empty($it['size'])): ?>
                 <div><small>Size: <?= htmlspecialchars($it['size']) ?></small></div>
               <?php endif; ?>
-
-              <!-- Quantity -->
               <div><small>Qty: <?= (int)$it['quantity'] ?></small></div>
             </div>
-
-            <!-- Line total -->
             <div>
               <strong>€<?= number_format($it['lineTotal'], 2) ?></strong>
             </div>
           </li>
         <?php endforeach; ?>
       </ul>
-
-      <!-- Overall total -->
-      <p style="text-align:right;font-weight:700;margin-top:0.75rem;">
-        Total: €<?= number_format($total, 2) ?>
-      </p>
+      <p class="checkout-total">Total: €<?= number_format($total, 2) ?></p>
     </div>
 
-    <br>
-
-    <!-- ----------------------------
-         Checkout Form Section
-         ---------------------------- -->
-    <div style="background:#f7f1cf;border-radius:22px;padding:1.25rem 1.5rem;box-shadow:0 8px 18px rgba(0,0,0,0.12);">
-
-      <!-- Section title -->
-      <h2 style="font-family:'Playfair Display',serif;margin:0 0 0.75rem;">
-        Checkout
-      </h2>
-
-      <!-- Checkout form (submitted using JavaScript) -->
-      <form id="checkout-form">
-
-        <!-- Customer details -->
+    <!-- Checkout Form Section -->
+    <div class="checkout-box">
+      <h2 class="checkout-heading">Checkout</h2>
+      <form id="checkout-form" class="checkout-form">
         <label>
           Name:
           <input name="customer_name" required>
-        </label><br><br>
+        </label>
 
         <label>
           Email:
           <input name="email" type="email" required>
-        </label><br><br>
+        </label>
 
         <label>
           Address:
           <input name="address_line1" required>
-        </label><br><br>
+        </label>
 
         <label>
           City:
           <input name="city" required>
-        </label><br><br>
+        </label>
 
         <label>
           Eircode:
           <input name="eircode" required>
-        </label><br><br>
+        </label>
 
         <!-- Payment details (demo only – not real processing) -->
         <label>
           Card Name:
           <input name="cardname" required>
-        </label><br><br>
+        </label>
 
         <label>
           Card Number:
           <input name="card" required>
-        </label><br><br>
+        </label>
 
         <label>
           Expiry Date:
           <input name="expiry" required>
-        </label><br><br>
+        </label>
 
-        <!-- Submit order -->
         <button type="submit" id="place-order-btn" class="cart-btn">
           Place Order
         </button>
       </form>
 
-      <!-- Message shown after submitting order -->
-      <p id="checkout-message" style="margin-top:0.75rem;"></p>
+      <p id="checkout-message" class="checkout-message"></p>
     </div>
 
   <?php endif; ?>
@@ -204,7 +160,7 @@ foreach ($cart as $key => $item) {
 <!-- Include site footer -->
 <?php include 'includes/footer.php'; ?>
 
-<!-- JavaScript that submits the checkout form using fetch() -->
+<!-- JavaScript to handle form submission -->
 <script src="/adamdevproject/js/checkout.js?v=1"></script>
 </body>
 </html>

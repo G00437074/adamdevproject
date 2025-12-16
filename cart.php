@@ -8,6 +8,8 @@ include_once 'includes/db_connect.php';
 // Include product helper functions
 require_once 'api/products.php';
 
+
+
 // Safety check to ensure database connection exists
 if (!isset($pdo)) {
     die("❌ PDO connection not available.");
@@ -70,7 +72,11 @@ foreach ($_SESSION['cart'] as $key => $item) {
 
     <!-- Main site stylesheet -->
     <link rel="stylesheet" href="/adamdevproject/css/style.css?v=22">
+
+    <link rel="icon" type="image/png" href="/adamdevproject/images/laufeyicon2.png?v=4">
+    <link rel="apple-touch-icon" href="/adamdevproject/images/laufeyicon2.png">
 </head>
+
 
 <body>
 

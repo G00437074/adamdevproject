@@ -51,7 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault(); // Prevent default link behaviour
 
       // Call the logout API to destroy the PHP session
-      fetch(API_BASE + 'logout.php')
+      // fetch(API_BASE + 'logout.php') 
+      fetch(API_BASE + 'logout.php', {
+        method: 'POST',
+        credentials: 'include'
+      })      
         .then(() => {
           // Reload the page so PHP updates the navigation
           location.reload();

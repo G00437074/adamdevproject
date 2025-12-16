@@ -644,6 +644,7 @@ body {
     margin: 0 auto;
     padding: 3rem 1.5rem 4rem;
     background: #d2e5f4;
+    padding: 3rem 1.5rem 4rem;
   }
   
   /* Title + link */
@@ -1114,4 +1115,6 @@ body {
     width: 220px !important;  /* adjust if you want wider */
   }
 
+ 
+  
 

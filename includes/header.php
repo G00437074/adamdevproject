@@ -16,7 +16,7 @@ $username = $isLoggedIn ? $_SESSION['username'] : '';
   <img src="images/laufey_header.jpeg" alt="Laufey Header" class="header-image">
 </header>
 
-
+<body>
 <!-- Main site navigation -->
 <nav class="site-nav">
   <ul class="nav-links">
@@ -102,7 +102,8 @@ $username = $isLoggedIn ? $_SESSION['username'] : '';
 </div>
 
 
-<script>
+<!-- MOVED THIS CODE TO AUTH.JS, JUST KEEPING FOR VERSION CONTROL-->
+<!-- <script>
   // ----------------------------
   // Login modal open / close
   // ----------------------------
@@ -244,8 +245,15 @@ $username = $isLoggedIn ? $_SESSION['username'] : '';
     // Prevent normal form submission
     return false;
   }
-</script>
+</script> -->
 
-<!-- Main login/create JavaScript logic -->
 
 <!-- Main login/create JS (loginUser, createUser, etc.) -->
+<script src="/adamdevproject/js/auth.js"></script>
+
+
+<!-- Close the body of the HTML document -->
+</body>
+
+<!-- Close the HTML document -->
+</html>

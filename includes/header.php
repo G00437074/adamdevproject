@@ -1,7 +1,9 @@
 <?php
 // Start or resume the session BEFORE any HTML output
 // This allows us to read login information stored in $_SESSION
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
 // Check if the user is logged in by seeing if a user_id exists
 $isLoggedIn = !empty($_SESSION['user_id']);

@@ -8,7 +8,9 @@
     <link rel="apple-touch-icon" href="/adamdevproject/images/laufeyicon2.png?v=3">
 
 <!-- Main site stylesheet -->
-<link rel="stylesheet" href="/adamdevproject/css/style.css?v=23">
+<!-- <link rel="stylesheet" href="/adamdevproject/css/style.css?v=23"> -->
+<link rel="stylesheet" href="css/style.css">
+
 
 </head>
 

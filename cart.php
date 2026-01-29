@@ -71,7 +71,7 @@ foreach ($_SESSION['cart'] as $key => $item) {
     <title>Your Cart</title>
 
     <!-- Main site stylesheet -->
-    <link rel="stylesheet" href="/adamdevproject/css/style.css?v=22">
+    <link rel="stylesheet" href="css/style.css">
 
     <link rel="icon" type="image/png" href="/adamdevproject/images/laufeyicon2.png?v=4">
     <link rel="apple-touch-icon" href="/adamdevproject/images/laufeyicon2.png">

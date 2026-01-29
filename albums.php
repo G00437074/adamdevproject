@@ -11,7 +11,7 @@
 
     <!-- Main stylesheet for the website -->
     <!-- Version number (?v=20) helps prevent browser caching issues -->
-    <link rel="stylesheet" href="/adamdevproject/css/style.css?v=20">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>

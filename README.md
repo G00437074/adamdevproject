@@ -22,7 +22,7 @@ The site is themed around the artist Laufey and includes albums, songs, tour dat
 
 📂 Project Structure (Key Files)
 🛠 Technologies Used
-PHP (server-side logic)
+-PHP (server-side logic)
 MySQL (database)
 PDO (secure database access)
 JavaScript (Fetch API) for AJAX
